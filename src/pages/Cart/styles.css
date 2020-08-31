@@ -1,0 +1,40 @@
+#cart-page {
+    width: 100vw;
+    height: 100vh;
+}
+
+#cart-page #header {
+    background-color: var(--color-primary);
+    padding: 3.2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#cart-page #header a {
+    background: none;
+    text-decoration: none;
+    color: black;
+}
+
+#cart-page #header div strong {
+    font: 700 2.4rem Archivo;
+    display: block;
+    color: var(--color-text);
+}
+
+#cart-page main {
+    margin: 3.2rem auto;
+    width: 90%;
+}
+
+@media(min-width:700px) {
+    #cart-page {
+        max-width: 100%;
+    }
+    #cart-page main {
+        padding: 3.2rem 0;
+        max-width: 740px;
+        margin: 0 auto;
+    }
+}
