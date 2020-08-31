@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import api from '../../services/api';
 
 
 export interface Product{
@@ -12,8 +13,19 @@ interface ProductProps{
     product:Product;
 }
 const ProductItem:React.FC<ProductProps>=({product})=>{
-    function handleClick(id:number){
-        console.log(id);
+    async function handleClick(id:number,price:number){
+        let i = 1;
+        await api.post('cart',{
+            product_id:id,
+            quantity:1,
+            totalValue:price*i
+        }).then(()=>{
+            alert("Adicionado ao carrinho");
+        }).catch((err)=>{
+            alert("Não consegui adicionar ao carrinho");
+            console.log(err);
+        })
+
     }
     return (
         <article className="product-item">
@@ -27,7 +39,7 @@ const ProductItem:React.FC<ProductProps>=({product})=>{
                     Preço: 
                     <strong>R$ {product.price}</strong>
                 </p>
-                <button onClick={()=>handleClick(product.id)}>
+                <button onClick={()=>handleClick(product.id,product.price)}>
                     Adicionar ao carrinho
                 </button>
             </footer>

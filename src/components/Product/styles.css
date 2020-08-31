@@ -65,6 +65,10 @@
     text-decoration: none;
 }
 
+.product-item footer button:hover {
+    background: var(--color-button-lighter);
+}
+
 @media (min-width:700px) {
     .product-item header,
     .product-item footer {
