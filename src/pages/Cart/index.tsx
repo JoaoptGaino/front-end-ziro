@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import api from '../../services/api';
 import CartItem, { Cart } from '../../components/CartItem';
 function CartPage() {
+    const history = useHistory();
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
@@ -19,7 +20,18 @@ function CartPage() {
                 })
         }
         getCart();
-    }, [])
+    }, []);
+    async function finishOrder(){
+        await api.delete('cart')
+        .then(()=>{
+            alert('Carrinho finalizado com sucesso!');
+            history.push('/');
+        })
+        .catch((err)=>{
+            alert("Erro ao finalizar carrinho!");
+            console.log(err);
+        })
+    }
     return (
         <div id="cart-page">
 
@@ -34,8 +46,13 @@ function CartPage() {
                 </Link>
             </div>
             <main>
+                <div id="buttonsContainer">
+                    <button id="finishOrder" onClick={() => finishOrder()}>
+                        Finalizar carrinho
+                </button>
+                </div>
                 {
-                    cart.map((cart:Cart)=>{
+                    cart.map((cart: Cart) => {
                         return <CartItem key={cart.id} cart={cart} />
                     })
                 }
